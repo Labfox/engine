@@ -9,9 +9,10 @@ package gls
 
 import (
 	"fmt"
-	"github.com/g3n/engine/util/wasm"
 	"syscall/js"
 	"unsafe"
+
+	"github.com/Labfox/engine/util/wasm"
 )
 
 // GLS encapsulates the state of a WebGL context and contains
@@ -71,6 +72,44 @@ type GLS struct {
 	// Canvas and WebGL Context
 	canvas js.Value
 	gl     js.Value
+}
+
+// This fixes errors in postprocessor.go
+// TODO: Clean solution
+
+func (h *GLS) GenFramebuffer() uint32 {
+	panic("unimplemented")
+}
+
+func (gs *GLS) BindFramebuffer(fb uint32) {
+	panic("unimplemented")
+}
+
+func (gs *GLS) FramebufferTexture2D(attachment uint, textarget uint, tex uint32) {
+	panic("unimplemented")
+}
+
+func (gs *GLS) GenRenderbuffer() uint32 {
+
+	panic("unimplemented")
+}
+
+func (gs *GLS) BindRenderbuffer(rb uint32) {
+
+	panic("unimplemented")
+}
+
+func (gs *GLS) RenderbufferStorage(format uint, width int, height int) {
+	panic("unimplemented")
+
+}
+
+func (gs *GLS) FramebufferRenderbuffer(attachment uint, rb uint32) {
+	panic("unimplemented")
+}
+
+func (gs *GLS) CheckFramebufferStatus() uint32 {
+	panic("unimplemented")
 }
 
 // New creates and returns a new instance of a GLS object,
@@ -736,7 +775,7 @@ func (gs *GLS) Uniform4f(location int32, v0, v1, v2, v3 float32) {
 	gs.stats.Unisets++
 }
 
-//// UniformMatrix3fv sets the value of one or many 3x3 float matrices for the current program object.
+// // UniformMatrix3fv sets the value of one or many 3x3 float matrices for the current program object.
 func (gs *GLS) UniformMatrix3fv(location int32, count int32, transpose bool, pm *float32) {
 
 	data := (*[1 << 30]float32)(unsafe.Pointer(pm))[:9*count]

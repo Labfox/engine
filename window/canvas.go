@@ -311,7 +311,7 @@ const (
 const (
 	CursorNormal = CursorMode(iota)
 	CursorHidden
-	CursorDisabled
+	CursorLocked
 )
 
 // WebGlCanvas is a browser-based WebGL canvas.
@@ -635,7 +635,7 @@ func (w *WebGlCanvas) SetCursorMode(mode CursorMode) {
 	case CursorNormal:
 		js.Global().Get("document").Call("exitPointerLock")
 	case CursorHidden:
-	case CursorDisabled:
+	case CursorLocked:
 		promise := w.Canvas().Call("requestPointerLock", map[string]interface{}{"unadjustedMovement": true})
 		if promise.IsUndefined() {
 			w.Canvas().Call("requestPointerLock")

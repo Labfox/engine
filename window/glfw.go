@@ -180,9 +180,9 @@ const (
 
 // Cursor mode values
 const (
-	CursorNormal   = CursorMode(glfw.CursorNormal)
-	CursorHidden   = CursorMode(glfw.CursorHidden)
-	CursorDisabled = CursorMode(glfw.CursorDisabled)
+	CursorNormal = CursorMode(glfw.CursorNormal)
+	CursorHidden = CursorMode(glfw.CursorHidden)
+	CursorLocked = CursorMode(glfw.CursorDisabled)
 )
 
 // GlfwWindow describes one glfw window
@@ -505,7 +505,7 @@ func (w *GlfwWindow) SetCursor(cursor Cursor) {
 // SetCursorMode sets the window's cursor mode.
 func (w *GlfwWindow) SetCursorMode(mode CursorMode) {
 	w.Window.SetInputMode(glfw.CursorMode, int(mode))
-	w.lockEv.Locked = mode == CursorDisabled
+	w.lockEv.Locked = mode == CursorLocked
 	w.Dispatch(OnLockChange, &w.lockEv)
 }
 

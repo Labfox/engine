@@ -8,13 +8,13 @@ package gltf
 import (
 	"image"
 
-	"github.com/g3n/engine/animation"
-	"github.com/g3n/engine/camera"
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/graphic"
-	"github.com/g3n/engine/material"
-	"github.com/g3n/engine/math32"
+	"github.com/Labfox/engine/animation"
+	"github.com/Labfox/engine/camera"
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/graphic"
+	"github.com/Labfox/engine/material"
+	"github.com/Labfox/engine/math32"
 )
 
 // glTF Extensions.

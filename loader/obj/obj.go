@@ -18,13 +18,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/geometry"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/graphic"
-	"github.com/g3n/engine/material"
-	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/texture"
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/geometry"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/graphic"
+	"github.com/Labfox/engine/material"
+	"github.com/Labfox/engine/math32"
+	"github.com/Labfox/engine/texture"
 )
 
 // Decoder contains all decoded data from the obj and mtl files
@@ -145,7 +145,7 @@ func DecodeReader(objreader, mtlreader io.Reader) (*Decoder, error) {
 		return nil, err
 	}
 
-	if (mtlreader != nil) {
+	if mtlreader != nil {
 		// Parses mtl lines
 		// 1) try passed in mtlreader,
 		// 2) try file in mtllib line

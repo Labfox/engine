@@ -9,11 +9,12 @@ package window
 
 import (
 	"fmt"
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/util/wasm"
 	_ "image/png"
 	"syscall/js"
+
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/util/wasm"
 )
 
 // Keycodes

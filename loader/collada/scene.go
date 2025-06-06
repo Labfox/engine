@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/graphic"
-	"github.com/g3n/engine/material"
-	"github.com/g3n/engine/math32"
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/graphic"
+	"github.com/Labfox/engine/material"
+	"github.com/Labfox/engine/math32"
 )
 
 // NewScene returns a new collada empty scene

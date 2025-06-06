@@ -8,8 +8,8 @@ import (
 	"math"
 	"strings"
 
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/math32"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/math32"
 )
 
 // INode is the interface for all node types.

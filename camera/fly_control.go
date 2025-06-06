@@ -5,10 +5,10 @@
 package camera
 
 import (
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gui"
-	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/window"
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/gui"
+	"github.com/Labfox/engine/math32"
+	"github.com/Labfox/engine/window"
 )
 
 // FlyMovement are the ways the camera can move.

@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/g3n/engine/audio/al"
-	"github.com/g3n/engine/audio/vorbis"
-	"github.com/g3n/engine/renderer"
-	"github.com/g3n/engine/window"
+	"github.com/Labfox/engine/audio/al"
+	"github.com/Labfox/engine/audio/vorbis"
+	"github.com/Labfox/engine/renderer"
+	"github.com/Labfox/engine/window"
 )
 
 // Application

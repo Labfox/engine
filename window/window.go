@@ -9,9 +9,9 @@ package window
 import (
 	"fmt"
 
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/util/logger"
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/util/logger"
 )
 
 // Package logger

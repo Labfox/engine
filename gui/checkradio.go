@@ -5,8 +5,8 @@
 package gui
 
 import (
-	"github.com/g3n/engine/gui/assets/icon"
-	"github.com/g3n/engine/window"
+	"github.com/Labfox/engine/gui/assets/icon"
+	"github.com/Labfox/engine/window"
 )
 
 const (

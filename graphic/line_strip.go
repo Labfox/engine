@@ -5,10 +5,10 @@
 package graphic
 
 import (
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/geometry"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/material"
+	"github.com/Labfox/engine/core"
+	"github.com/Labfox/engine/geometry"
+	"github.com/Labfox/engine/gls"
+	"github.com/Labfox/engine/material"
 )
 
 // LineStrip is a Graphic which is rendered as a collection of connected lines.

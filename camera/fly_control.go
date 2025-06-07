@@ -5,6 +5,8 @@
 package camera
 
 import (
+	"time"
+
 	"github.com/Labfox/engine/core"
 	"github.com/Labfox/engine/gui"
 	"github.com/Labfox/engine/math32"
@@ -115,6 +117,8 @@ type FlyControl struct {
 	// Maps a movment to a key press.
 	Keys map[FlyMovement]window.Key
 
+	applicateMovements []FlyMovement
+
 	// Mouse map.
 	// Maps a movement to a mouse "guesture"
 	// (a combination of mouse movement and optional mouse button).
@@ -199,10 +203,10 @@ func FPSStyle() FlyControlOption {
 		})(fc)
 
 		WithSpeeds(map[FlyMovement]float32{
-			Forward:  1,
-			Backward: -1,
-			Right:    1,
-			Left:     -1,
+			Forward:  5,
+			Backward: -5,
+			Right:    5,
+			Left:     -5,
 			// Up:        1,
 			// Down:      -1,
 			YawRight:  twoPiOver64,
@@ -265,10 +269,10 @@ func FlightSimStyle() FlyControlOption {
 
 		// click+hold to look with mouse
 		WithMouse(map[FlyMovement]MouseGuesture{
-			YawRight:  {Motion: MouseRight, Buttons: []window.MouseButton{window.MouseButtonLeft}},
-			YawLeft:   {Motion: MouseLeft, Buttons: []window.MouseButton{window.MouseButtonLeft}},
-			PitchUp:   {Motion: MouseUp, Buttons: []window.MouseButton{window.MouseButtonLeft}},
-			PitchDown: {Motion: MouseDown, Buttons: []window.MouseButton{window.MouseButtonLeft}},
+			YawRight:  {Motion: MouseRight},
+			YawLeft:   {Motion: MouseLeft},
+			PitchUp:   {Motion: MouseUp},
+			PitchDown: {Motion: MouseDown},
 			ZoomIn:    {Motion: MouseScrollUp},
 			ZoomOut:   {Motion: MouseScrollDown},
 		})(fc)
@@ -338,9 +342,9 @@ func NewFlyControl(cam *Camera, target, worldUp *math32.Vector3,
 // only once.
 func (fc *FlyControl) Subscribe(key, mouse bool) {
 	if key && !fc.isKeySubscribed {
-		gui.Manager().SubscribeID(window.OnKeyDown, fc, fc.onKey)
-		gui.Manager().SubscribeID(window.OnKeyRepeat, fc, fc.onKey)
-		// gui.Manager().SubscribeID(window.OnKeyUp, fc, fc.onKeyUp)
+		gui.Manager().SubscribeID(window.OnKeyDown, fc, fc.onKeyDown)
+		//gui.Manager().SubscribeID(window.OnKeyRepeat, fc, fc.onKey)
+		gui.Manager().SubscribeID(window.OnKeyUp, fc, fc.onKeyUp)
 		fc.isKeySubscribed = true
 	}
 
@@ -722,7 +726,7 @@ func (fc *FlyControl) onScroll(evname string, ev interface{}) {
 }
 
 // onKey is called when an OnKeyDown/OnKeyRepeat event is received.
-func (fc *FlyControl) onKey(evname string, ev interface{}) {
+func (fc *FlyControl) onKeyDown(evname string, ev interface{}) {
 
 	kev := ev.(*window.KeyEvent)
 
@@ -739,10 +743,54 @@ func (fc *FlyControl) onKey(evname string, ev interface{}) {
 		return
 	}
 
-	delta := fc.Speeds[movement]
-	fc.apply(movement, delta)
+	fc.applicateMovements = append(fc.applicateMovements, movement)
+
+	//delta := fc.Speeds[movement]
+	//fc.apply(movement, delta)
+}
+
+func removeFlyMovement(s []FlyMovement, i int) []FlyMovement {
+	s[i] = s[len(s)-1]
+	return s[:len(s)-1]
+}
+
+func indexOf[T comparable](slice []T, value T) int {
+	for i, v := range slice {
+		if v == value {
+			return i
+		}
+	}
+	return -1 // Not found
 }
 
 // onKeyUp is called when an OnKeyUp event is received.
-// func (fc *FlyControl) onKeyUp(evname string, ev interface{}) {
-// }
+func (fc *FlyControl) onKeyUp(evname string, ev interface{}) {
+	kev := ev.(*window.KeyEvent)
+
+	// find which movement the key corresponds to
+	var movement FlyMovement = -1
+	for m, k := range fc.Keys {
+		if k == kev.Key {
+			movement = m
+			break
+		}
+	}
+	if movement == -1 {
+		// the pressed key is not mapped to a camera movement
+		return
+	}
+
+	fc.applicateMovements = removeFlyMovement(fc.applicateMovements, indexOf(fc.applicateMovements, movement))
+
+}
+
+// Apply movement as long as the key is pressed
+
+func (fc *FlyControl) ApplyTransformations(delta time.Duration) {
+
+	for _, v := range fc.applicateMovements {
+
+		fc.apply(v, fc.Speeds[v]*float32(delta.Seconds()))
+	}
+
+}
